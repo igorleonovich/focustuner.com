@@ -8,10 +8,10 @@ services:
       - "./:/usr/share/nginx/html"
     environment:
       # NGINX-PROXY ENVIRONMENT VARIABLES: UPDATE ME
-      - VIRTUAL_HOST=test.igorleonovich.com 
+      - VIRTUAL_HOST=focustuner.com
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=test.igorleonovich.com 
-      - LETSENCRYPT_EMAIL=mail@igorleonovich.com
+      - LETSENCRYPT_HOST=focustuner.com
+      - LETSENCRYPT_EMAIL=mail@focustuner.com
       # /END NGINX-PROXY ENVIRONMENT VARIABLES
     expose:
       - 80
