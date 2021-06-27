@@ -1,21 +1,32 @@
 version: '3.6'
 
 services:
-  test:
+  www.focustuner.com:
+    container_name: www.focustuner.com
     image: nginx
     restart: always
     volumes:
       - "./:/usr/share/nginx/html"
     environment:
-      # NGINX-PROXY ENVIRONMENT VARIABLES: UPDATE ME
+      - VIRTUAL_HOST=www.focustuner.com
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=www.focustuner.com
+      - LETSENCRYPT_EMAIL=alboukadel.kassambara@gmail.com
+
+  # redirect focustuner.com to www.focustuner.com
+  focustuner.com:
+    container_name: focustuner.com
+    image: cusspvz/redirect
+    restart: always
+    environment:
       - VIRTUAL_HOST=focustuner.com
       - VIRTUAL_PORT=80
+      - HTTPS_METHOD=noredirect
       - LETSENCRYPT_HOST=focustuner.com
-      - LETSENCRYPT_EMAIL=mail@focustuner.com
-      # /END NGINX-PROXY ENVIRONMENT VARIABLES
-    expose:
-      - 80
-
+      - REDIRECT=https://www.focustuner.com
+      # See available redirect parameters: https://github.com/cusspvz/redirect.docker
+      - WORKER_CONNECTIONS=1024
+      
 networks:
   default:
     external:

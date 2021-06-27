@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  focustuner.com:
+    container_name: focustuner.com
+    image: nginx
+    restart: always
+    volumes:
+      - "./:/usr/share/nginx/html"
+    environment:
+      # NGINX-PROXY ENVIRONMENT VARIABLES: UPDATE ME
+      - VIRTUAL_HOST=focustuner.com
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=focustuner.com
+      - LETSENCRYPT_EMAIL=mail@focustuner.com
+      # /END NGINX-PROXY ENVIRONMENT VARIABLES
+    expose:
+      - 80
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
